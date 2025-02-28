@@ -9,6 +9,7 @@ where
 
 import Control.Monad.State (evalState)
 import Heck.Compiler.Functions
+import Heck.Compiler.Misc
 import Heck.Compiler.Types
 import Heck.Stuff (HsModule (..))
 import Heck.Utils (concatMapM)
@@ -20,6 +21,8 @@ compileDeclaration :: (Show l) => Decl l -> Heck [JsStmt]
 compileDeclaration (FunBind _ matches) = compileFunBinds matches
 compileDeclaration (PatBind _ pat rhs binds) = compilePatBind pat rhs binds
 compileDeclaration (TypeSig _ names typeSig) = processTypeSignatures names typeSig
+compileDeclaration (TypeDecl _ th type') = compileTypeDecl th type'
+compileDeclaration (DataDecl _ don c dh cds drvs) = compileDataDecl don c dh cds drvs
 compileDeclaration _ = return []
 
 compileModule :: HsModule -> Heck [JsStmt]

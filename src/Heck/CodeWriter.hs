@@ -21,6 +21,8 @@ writeExpr (JsBin op l r) = "(" <> writeExpr l <> " " <> op <> " " <> writeExpr r
 writeExpr (JsNeg expr) = "-(" <> writeExpr expr <> ")"
 writeExpr (JsImmediatelyEvaluatedLambda stmts) = "(()=>{\n" <> concatMap writeStmt stmts <> "})()"
 writeExpr (JsCall callee arg) = "(" <> writeExpr callee <> ")(" <> writeExpr arg <> ")"
+writeExpr (JsObject vals) = "({\n" <> concatMap (\(k, v) -> k <> ": " <> writeExpr v <> ",\n") vals <> "})"
+writeExpr (JsDot val name) = writeExpr val <> "." <> name
 
 writeLit :: JsLit -> String
 writeLit JsUndefined = "undefined"

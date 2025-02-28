@@ -26,6 +26,7 @@ library
         Heck.Stuff
         Heck.Compiler.TypeCheck
         Heck.Compiler.Types
+        Heck.Compiler.Misc
         Heck.Compiler.Functions
         Heck.Utils
     build-depends:
